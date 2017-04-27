@@ -181,7 +181,7 @@ func buildReply(game words, Text string) string {
 }
 
 func load() (map[rune][]string) {
-	file, err := ioutil.ReadFile("/Users/sol/dev/go/src/slovobot/main/nouns.txt")
+	file, err := ioutil.ReadFile("nouns.txt")
 	if err != nil {
 		panic(err)
 	}
