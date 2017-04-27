@@ -13,6 +13,7 @@ import (
 	"github.com/bot-api/telegram/telebot"
 	"golang.org/x/net/context"
 
+	"flag"
 )
 
 type words struct {
@@ -30,12 +31,13 @@ const (
 
 
 func main() {
+	token := flag.String("token", "", "telegram bot token")
 	commands := make([]string, 3)
 	commands[0] = START
 	commands[1] = HELP
 	commands[2] = LIST
 	// подключаемся к боту с помощью токена
-	api := telegram.New("")
+	api := telegram.New(*token)
 	api.Debug(true)
 	bot := telebot.NewWithAPI(api)
 	//log.Printf("Authorized on account %s", bot.Self.UserName)
