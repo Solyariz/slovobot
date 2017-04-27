@@ -32,6 +32,8 @@ const (
 
 func main() {
 	token := flag.String("token", "", "telegram bot token")
+	fmt.Println("token", token)
+	flag.Parse()
 	commands := make([]string, 3)
 	commands[0] = START
 	commands[1] = HELP
