@@ -156,8 +156,9 @@ func main() {
 		if len(game.dictionary) == 0 {
 			msg = "Game is not started yet. Try /help"
 		} else {
-			msg = buildReply(game, update.Message.Text)
+			msg = game.buildReply(update.Message.Text)
 		}
+		fmt.Println("after_used: ", game.used)
 		api := telebot.GetAPI(ctx) // take api from context
 		_, err := api.Send(ctx, telegram.NewMessage(update.Message.Chat.ID, msg))
 		return err
@@ -168,7 +169,7 @@ func main() {
 		log.Fatal(err)
 	}
 }
-func buildReply(game words, Text string) string {
+func (game *words)buildReply(Text string) string {
 	var reply string
 	if !game.startsWithRightLetter(Text) {
 		reply = "Word must start with last letter from previous word"
@@ -262,8 +263,8 @@ func (game * words) chooseReply(msg string) string {
 	for ok == true {
 		candidate = wordList[r1.Intn(length-1)]
 	}
-	game.used = append(game.used, candidate)
-	fmt.Println(game.used)
+	//game.used = append(game.used, candidate)
+	game.use(candidate)
 	return candidate
 }
 
