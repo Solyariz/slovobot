@@ -9,6 +9,6 @@
   ],
   "image": "heroku/go:1.6",
   "mount_dir": "src/github.com/Solyariz/slovobot",
-  "website": "https://github.com/Solyariz/slovobot",
-  "repository": "https://github.com/Solyariz/slovobot"
+  "website": "http://github.com/Solyariz/slovobot",
+  "repository": "http://github.com/Solyariz/slovobot"
 }
