@@ -1,1 +1,1 @@
-web: slovobot
+worker: slovobot
