@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"strings"
 	"fmt"
-	"unicode/utf8"
+	//"unicode/utf8"
 	"time"
 	"math/rand"
 
@@ -13,6 +13,7 @@ import (
 	"github.com/bot-api/telegram/telebot"
 	"golang.org/x/net/context"
 	"os"
+	"slovobot/util"
 )
 
 type words struct {
@@ -183,7 +184,7 @@ func load() (map[rune][]string) {
 	words := strings.Fields(string(file))
 	fmt.Println(len(words))
 	for _, el := range words {
-		runeWord := toRunes(el)
+		runeWord := util.ToRunes(el)
 		firstLetter := runeWord[0]
 		wordList, ok := wordMap[firstLetter]
 		if ok {
@@ -199,19 +200,7 @@ func load() (map[rune][]string) {
 	return wordMap
 }
 
-func toRunes(ss string) []rune {
-	runes := make([]rune, 0)
-	s := []byte(ss)
-	for utf8.RuneCount(s) > 0 {
-		//r, size := utf8.DecodeRune(s)
-		//s = s[size:]
-		nextR, size := utf8.DecodeRune(s)
-		runes = append(runes, nextR)
-		s = s[size:]
-		//fmt.Print(r == nextR, ",")
-	}
-	return runes
-}
+
 
 //func chooseReply(msg string, game words) (string) {
 //	lastLetter := lastLetter(msg)
@@ -231,7 +220,7 @@ func toRunes(ss string) []rune {
 //}
 
 func (game * words) chooseReply(msg string) string {
-	rWord := toRunes(msg)
+	rWord := util.ToRunes(msg)
 	i := len(rWord) - 1
 	lastLetter := rWord[i]
 	//fmt.Println(lastLetter)
@@ -273,7 +262,7 @@ func (game * words) startsWithRightLetter(word string) bool {
 	if len(game.lastWord) == 0 {
 		return true
 	}
-	rWord := toRunes(game.lastWord)
+	rWord := util.ToRunes(game.lastWord)
 	i := len(rWord)-1
 	last := rWord[i]
 	for len(game.dictionary[last]) == 0 && i >= 0 {
@@ -294,7 +283,7 @@ func lastLetter(msg string) rune {
 	if msg == "" {
 		return -1
 	} else {
-		runes := toRunes(msg)
+		runes := util.ToRunes(msg)
 		//fmt.Println(runes)
 		lastLetter := runes[len(runes)-1]
 		return lastLetter
@@ -305,7 +294,7 @@ func firstLetter(msg string) rune {
 	if msg == "" {
 		return -1
 	} else {
-		runes := toRunes(msg)
+		runes := util.ToRunes(msg)
 		//fmt.Println(runes)
 		lastLetter := runes[0]
 		return lastLetter
