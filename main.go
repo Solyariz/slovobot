@@ -175,7 +175,7 @@ func buildReply(game words, Text string) string {
 }
 
 func load() (map[rune][]string) {
-	file, err := ioutil.ReadFile("/dict/words_rus")
+	file, err := ioutil.ReadFile("./dict/words_rus")
 	if err != nil {
 		panic(err)
 	}
