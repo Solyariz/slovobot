@@ -27,6 +27,7 @@ const (
 	HELP  = "help"
 	LIST  = "list"
 	RESET  = "reset"
+	USED  = "used"
 )
 
 
@@ -109,6 +110,20 @@ func main() {
 					limit = len(filtered)
 				}
 				text := fmt.Sprintf("%s", filtered[0:limit])
+				fmt.Println(text)
+				_, err := api.SendMessage(ctx,
+					telegram.NewMessage(update.Chat().ID,
+						text))
+				return err
+			}),
+		USED: telebot.CommandFunc(
+			func(ctx context.Context, arg string) error {
+
+				api := telebot.GetAPI(ctx)
+				update := telebot.GetUpdate(ctx)
+				//command, arg := update.Message.Command()
+
+				text := fmt.Sprintf("%s", game.used)
 				fmt.Println(text)
 				_, err := api.SendMessage(ctx,
 					telegram.NewMessage(update.Chat().ID,
