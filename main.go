@@ -14,9 +14,10 @@ import (
 	"golang.org/x/net/context"
 
 	//"flag"
-	"os/exec"
-	"bytes"
-	"encoding/json"
+	//"os/exec"
+	//"bytes"
+	//"encoding/json"
+	"os"
 )
 
 type words struct {
@@ -43,27 +44,27 @@ type Token struct {
 
 
 func main() {
-	url := "https://api.heroku.com/apps/secret-castle-78378/config-vars"
-	cmd := exec.Command("curl", "-n", url, "-H", "Accept: application/vnd.heroku+json; version=3")
-	var outb, errb bytes.Buffer
-	cmd.Stdout = &outb
-	cmd.Stderr = &errb
-	err := cmd.Run()
-	if err != nil {
-		fmt.Println("Error: ", err)
-	}
-	var dat map[string]string
-	if err := json.Unmarshal(outb.Bytes(), &dat); err != nil {
-		panic(err)
-	}
-	fmt.Println(dat)
-
+	//url := "https://api.heroku.com/apps/secret-castle-78378/config-vars"
+	//cmd := exec.Command("curl", "-n", url, "-H", "Accept: application/vnd.heroku+json; version=3")
+	//var outb, errb bytes.Buffer
+	//cmd.Stdout = &outb
+	//cmd.Stderr = &errb
+	//err := cmd.Run()
+	//if err != nil {
+	//	fmt.Println("Error: ", err)
+	//}
+	//var dat map[string]string
+	//if err := json.Unmarshal(outb.Bytes(), &dat); err != nil {
+	//	panic(err)
+	//}
+	//fmt.Println(dat)
+	token := os.Getenv("BOT_TOKEN")
 	commands := make([]string, 3)
 	commands[0] = START
 	commands[1] = HELP
 	commands[2] = LIST
 	// подключаемся к боту с помощью токена
-	api := telegram.New(dat["BOT_TOKEN"])
+	api := telegram.New(token)
 	api.Debug(true)
 	bot := telebot.NewWithAPI(api)
 
@@ -173,7 +174,7 @@ func main() {
 		return err
 	})
 
-	err = bot.Serve(netCtx)
+	err := bot.Serve(netCtx)
 	if err != nil {
 		log.Fatal(err)
 	}
