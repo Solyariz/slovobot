@@ -12,11 +12,6 @@ import (
 	"github.com/bot-api/telegram"
 	"github.com/bot-api/telegram/telebot"
 	"golang.org/x/net/context"
-
-	//"flag"
-	//"os/exec"
-	//"bytes"
-	//"encoding/json"
 	"os"
 )
 
@@ -34,41 +29,19 @@ const (
 )
 
 
-type Params struct {
-	Count int `url:"count,omitempty"`
-}
-
-type Token struct {
-	Bot int `json:"BOT_TOKEN"`
-}
-
-
 func main() {
-	//url := "https://api.heroku.com/apps/secret-castle-78378/config-vars"
-	//cmd := exec.Command("curl", "-n", url, "-H", "Accept: application/vnd.heroku+json; version=3")
-	//var outb, errb bytes.Buffer
-	//cmd.Stdout = &outb
-	//cmd.Stderr = &errb
-	//err := cmd.Run()
-	//if err != nil {
-	//	fmt.Println("Error: ", err)
-	//}
-	//var dat map[string]string
-	//if err := json.Unmarshal(outb.Bytes(), &dat); err != nil {
-	//	panic(err)
-	//}
-	//fmt.Println(dat)
 	token := os.Getenv("BOT_TOKEN")
-	commands := make([]string, 3)
+	commands := make([]string, 4)
 	commands[0] = START
 	commands[1] = HELP
 	commands[2] = LIST
-	// подключаемся к боту с помощью токена
+	commands[2] = RESET
+	// connect to bot with token
 	api := telegram.New(token)
 	api.Debug(true)
 	bot := telebot.NewWithAPI(api)
 
-	// инициализируем канал, куда будут прилетать обновления от API
+	// init
 	bot.Use(telebot.Recover()) // recover if handler panics
 	netCtx, cancel := context.WithCancel(context.Background())
 	defer cancel()
