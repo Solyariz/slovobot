@@ -1,0 +1,21 @@
+{
+	"ImportPath": "slovobot",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/bot-api/telegram",
+			"Comment": "v0.1-alpha-4-gb7abf87",
+			"Rev": "b7abf87c449e690eb3563f53987186c95702c49f"
+		},
+		{
+			"ImportPath": "github.com/bot-api/telegram/telebot",
+			"Comment": "v0.1-alpha-4-gb7abf87",
+			"Rev": "b7abf87c449e690eb3563f53987186c95702c49f"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344"
+		}
+	]
+}
